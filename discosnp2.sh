@@ -19,36 +19,16 @@ grep SNP_ ${DENOVO_DIR}/${VCF_RAW_FILE} >> ${DENOVO_DIR}/${VCF_SNP_FILE}
 grep INDEL_ ${DENOVO_DIR}/${VCF_RAW_FILE} >> ${DENOVO_DIR}/${VCF_INDEL_FILE}
 
 # filter only one snp per cluster
-1SNP_by_cluster.py ${DENOVO_DIR}/${VCF_SNP_FILE} ${DENOVO_DIR}/${VCF_UNLINKED} 
+1SNP_by_cluster.py ${DENOVO_DIR}/${VCF_SNP_FILE} ${DENOVO_DIR}/${VCF_UNLINKED}
 
 # filter snps by invd and pop
 ${SCRIPT_DIR}/${FILTER_SNP_SCRIPT}
 
-# filter randomly 1k snp 
+# filter randomly 1k snp
 grep '^#' ${DENOVO_DIR}/${VCF_FINAL_FILE}.recode.vcf > ${DENOVO_DIR}/1krandom.vcf
 grep '^#' -v ${DENOVO_DIR}/${VCF_FINAL_FILE}.recode.vcf | shuf | head -n 1000 >> ${DENOVO_DIR}/1krandom.vcf && echo 1krandom creado
 
-
-############################
-
-
-PATHPGDSPIDER=$(find $HOME -name PGDSpider_2*)
-
-
-OUT_PGD=${BASE}/denovo/recode_pgd
-
-
-
-
-
-
-PGD_FSTR_SPID=$(find $HOME/samples/spid_files -name pgd-fstr.spid)
-
-OUT_FSTR=${BASE}/denovo/recode_fstr
-
-PATH_DISCOPARAMS=$(find $HOME -name run_discoSnpRad.sh)
-##########################################3
-
+# convert vcf to phylip(rxml), pgd, nexus, bayescan, genepop, structure.
 
 java -Xmx3072m -Xms512M -jar PGDSpider2-cli.jar -inputfile ${VCF_WORKFILE} -inputformat VCF -outputfile ${DENOVO_DIR}/${OUT_PGD} -outputformat PGD -spid ${LIST_DIR}/${VCF_PGD_SPID}
 java -Xmx3072m -Xms512M -jar PGDSpider2-cli.jar -inputfile ${DENOVO_DIR}/${OUT_PGD} -inputformat PGD -outputfile ${DENOVO_DIR}/${OUT_STR} -outputformat STRUCTURE -spid ${LIST_DIR}/${PGD_STR_SPID}
