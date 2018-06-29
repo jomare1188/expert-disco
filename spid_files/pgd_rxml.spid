@@ -1,0 +1,31 @@
+# spid-file generated: Tue Jun 12 15:46:44 COT 2018
+
+# PGD Parser questions
+PARSER_FORMAT=PGD
+
+
+# PHYLIP (RAxML) Writer questions
+WRITER_FORMAT=PHYLIP
+
+# Specify the DNA locus you want to write to the PHYLIP (RAxML) file or write "CONCAT" for concatenation:
+PHYLIP_WRITER_CONCATENATE_QUESTION=
+# Numeric SNP data: enter the integer that codes for nucleotide T:
+PHYLIP_WRITER_CODE_T_QUESTION=
+# Numeric SNP data: enter the integer that codes for nucleotide C:
+PHYLIP_WRITER_CODE_C_QUESTION=
+# Numeric SNP data: enter the integer that codes for nucleotide A:
+PHYLIP_WRITER_CODE_A_QUESTION=
+# Save relaxed PHYLIP format (e.g. for RAxML)?
+PHYLIP_WRITER_RELAXED_QUESTION=true
+# Select the kind of file you want to write:
+PHYLIP_WRITER_DATA_KIND_QUESTION=SEQUENCE
+# Numeric SNP data: enter the integer that codes for nucleotide G:
+PHYLIP_WRITER_CODE_G_QUESTION=
+# Do you want to save an additional file with sequence partitions separating loci (may be used within RAxML)?
+PHYLIP_WRITER_PARTITION_QUESTION=true
+# Save partition file
+PHYLIP_WRITER_PARTITION_FILE_QUESTION=/home/jorge/samples/denovo/RxML/partition
+# Specify which data type should be included in the PHYLIP (RAxML) file  (PHYLIP (RAxML) can only analyze one data type per file):
+PHYLIP_WRITER_DATA_TYPE_QUESTION=SNP
+# Specify the locus/locus combination you want to write to the PHYLIP (RAxML) file:
+PHYLIP_WRITER_LOCUS_COMBINATION_QUESTION=

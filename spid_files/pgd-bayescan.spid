@@ -1,0 +1,11 @@
+# spid-file generated: Mon Jun 04 13:10:41 COT 2018
+
+# PGD Parser questions
+PARSER_FORMAT=PGD
+
+
+# GESTE / BayeScan Writer questions
+WRITER_FORMAT=GESTE_BAYE_SCAN
+
+# Specify which data type should be included in the GESTE / BayeScan file  (GESTE / BayeScan can only analyze one data type per file):
+GESTE_BAYE_SCAN_WRITER_DATA_TYPE_QUESTION=SNP

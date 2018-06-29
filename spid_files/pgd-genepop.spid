@@ -1,0 +1,13 @@
+# spid-file generated: Thu Jun 07 10:13:53 COT 2018
+
+# PGD Parser questions
+PARSER_FORMAT=PGD
+
+
+# GENEPOP Writer questions
+WRITER_FORMAT=GENEPOP
+
+# Specify the locus/locus combination you want to write to the GENEPOP file:
+GENEPOP_WRITER_LOCUS_COMBINATION_QUESTION=
+# Specify which data type should be included in the GENEPOP file  (GENEPOP can only analyze one data type per file):
+GENEPOP_WRITER_DATA_TYPE_QUESTION=SNP

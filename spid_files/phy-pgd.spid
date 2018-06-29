@@ -1,0 +1,21 @@
+# spid-file generated: Thu Jun 14 00:06:44 COT 2018
+
+# PHYLIP (RAxML) Parser questions
+PARSER_FORMAT=PHYLIP
+
+# Specify the format of the data:
+PHYLIP_PARSER_DATA_FORMAT_QUESTION=SIMPLE
+# Save partition file
+PHYLIP_PARSER_PARTITION_FILE_QUESTION=
+# Is it a relaxed PHYLIP format (e.g. from RAxML)?
+PHYLIP_PARSER_RELAXED_QUESTION=true
+# Do you want to load an additional file with sequence partitions separating loci?
+PHYLIP_PARSER_PARTITION_QUESTION=false
+# Specify the format of the distance matrix:
+PHYLIP_PARSER_MATRIX_FORMAT_QUESTION=LOWER
+# What type of data is listed in the PHYLIP (RAxML) file?
+PHYLIP_PARSER_DATA_TYPE_QUESTION=SEQUENCE
+
+# PGD Writer questions
+WRITER_FORMAT=PGD
+

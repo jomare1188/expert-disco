@@ -1,0 +1,17 @@
+# spid-file generated: Mon Jun 04 13:07:47 COT 2018
+
+# PGD Parser questions
+PARSER_FORMAT=PGD
+
+
+# STRUCTURE Writer questions
+WRITER_FORMAT=STRUCTURE
+
+# Save more specific fastSTRUCTURE format?
+STRUCTURE_WRITER_FAST_FORMAT_QUESTION=false
+# Specify the locus/locus combination you want to write to the STRUCTURE file:
+STRUCTURE_WRITER_LOCUS_COMBINATION_QUESTION=
+# Specify which data type should be included in the STRUCTURE file  (STRUCTURE can only analyze one data type per file):
+STRUCTURE_WRITER_DATA_TYPE_QUESTION=SNP
+# Do you want to include inter-marker distances?
+STRUCTURE_WRITER_LOCI_DISTANCE_QUESTION=false
