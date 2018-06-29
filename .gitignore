@@ -1,1 +1,8 @@
 ./reference/Coconut.genome.fa
+./.gitignore
+./fastqs/*
+/**/*.fa
+/**/*.fastq
+/**/*.fq
+/**/*.sam
+/**/*.bam
