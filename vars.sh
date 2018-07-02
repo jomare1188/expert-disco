@@ -2,7 +2,7 @@
 # This script initializes the variables and creates the
 # folders to work with bowtie2 and stacks from all the
 # related scripts.
-# Author: Jorge Mario Muñoz <jmoare8811@gmail.com>
+# Author: Jorge Mario Muñoz <jomare8811@gmail.com>
 # Date: 06/22/2018
 # At: Centro de Computación Científica APOLO
 # Company: CIB - EAFIT
@@ -17,7 +17,7 @@ SAM_DIR=$REF_DIR/sam
 BAM_DIR=$REF_DIR/bam
 REFMAP_DIR=$REF_DIR/refmap
 FASTQS_DIR=$BASE/fastqs
-RAW_DIR=$BASE/RE_processed
+RAW_DIR=$BASE/../RE_processed
 DENOVO_DIR=$BASE/denovo
 FOF_FILE=fof.txt
 VCF_WORKFILE=${DENOVO_DIR}/${VCF_FINAL_FILE}.recode.vcf
@@ -25,16 +25,16 @@ VCF_WORKFILE=${DENOVO_DIR}/${VCF_FINAL_FILE}.recode.vcf
 # To edit
 VCF_FINAL_FILE=filtered_final.vcf
 PRODUCT=coco
-FASTA_FILE=CoConut.genome.fa
+FASTA_FILE=CoConut_test.genome.fa
 CODES_FILE=codes.txt
 PREPROC_SCRIPT=samples2.sh
 POPMAP_FILE=popfile_stacks
 POPFILE_SCRIPT=stacks_popfile.sh
 ## samples2.sh options
-NO_SAMPLES=0  
-LINES=3000000
-MAX_LINES=3000000
-## DiscoSnpRad options 
+NO_SAMPLES=20
+LINES=1000
+MAX_LINES=800000
+## DiscoSnpRad options
 SRC=$HOME/rconnector
 FOF_FILE=fof.txt
 PREFIX="Q"
@@ -66,4 +66,4 @@ PGD_BAYESCAN_SPID=pgd-bayescan.spid
 PGD_GENEPOP_SPID=pgd-genepop.spid
 
 # Create dirs
-mkdir -p $LIST_DIR $REF_DIR $INDEX_DIR $SCRIPT_DIR $SAM_DIR $FASTQS_DIR $REFMAP_DIR $RAW_DIR $DENOVO_DIR $REFMAP_DIR/P1 $REFMAP_DIR/P2 $REFMAP_DIR/P5 $SAM_DIR
+mkdir -p $LIST_DIR $REF_DIR $INDEX_DIR $SCRIPT_DIR $SAM_DIR $FASTQS_DIR $REFMAP_DIR $DENOVO_DIR $REFMAP_DIR/P1 $REFMAP_DIR/P2 $REFMAP_DIR/P5 $SAM_DIR $BAM_DIR

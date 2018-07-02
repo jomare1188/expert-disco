@@ -51,8 +51,8 @@ else ### discard files below a min number of reads
     let LIMIT2=${#LIST_BZ2[@]}-1
     while [ $LIMIT2 -ge $i ]
     do
-		#bzcat ${LIST_BZ2[i]} | head -n ${MAX_LINES} > "${BASE}"/fastqs/${SAMPLES[i]}  ### activate to discard lines above ${MAX_LINES} 
-		bzcat ${LIST_BZ2[i]} > "${BASE}"/fastqs/${SAMPLES[i]}
+		bzcat ${LIST_BZ2[i]} | head -n ${MAX_LINES} > "${BASE}"/fastqs/${SAMPLES[i]}  ### activate to discard lines above ${MAX_LINES} 
+		#bzcat ${LIST_BZ2[i]} > "${BASE}"/fastqs/${SAMPLES[i]}
 		echo $i de ${LIMIT2}
 		let READS=$(wc -l   ${BASE}/fastqs/${SAMPLES[i]} | cut -d " " -f 1)
 		if (($READS < $LINES))
@@ -61,7 +61,7 @@ else ### discard files below a min number of reads
 			echo ${BASE}/fastqs/${SAMPLES[i]} >> ${LIST_DIR}/eliminated.txt
 		fi
 	let i=$i+1
-    done    
+    done
 ## Step 4 rewritting fof taking into account the eliminated files
 	if [ -e ${LIST_DIR}/eliminated.txt ]
 	then
