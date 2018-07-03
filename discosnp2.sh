@@ -9,7 +9,7 @@
 
 ## step 4 run discosnp
 cd ${DENOVO_DIR}
-#run_discoSnpRad.sh -l -t -S $SRC -r ${DENOVO_DIR}/${FOF_FILE} -p "${PREFIX}" -k $k -b $b -c $c -d $de -D $D -P $P
+run_discoSnpRad.sh -l -t -S $SRC -r ${DENOVO_DIR}/${FOF_FILE} -p "${PREFIX}" -k $k -b $b -c $c -d $de -D $D -P $P
 cd ${BASE}
 
 ## step 5 filter indels and snps
@@ -27,7 +27,7 @@ grep INDEL_ ${DENOVO_DIR}/${VCF_RAW_FILE} >> ${DENOVO_DIR}/${VCF_INDEL_FILE}
 # filter step 7 (run 6 or 7) with populations script from stacks
 
 ${SCRIPT_DIR}/${STR_POPSCRIPT}
- 
+
 
 let limit=$NUM_POP
 let i=$min_pop
@@ -43,7 +43,7 @@ do
 		grep $a ${DENOVO_DIR}/snp.vcf >> ${DENOVO_DIR}/P$i/pop${i}_filtered.vcf
 		vcftools --vcf ${DENOVO_DIR}/P$i/pop${i}_filtered.vcf --recode --stdout > ${DENOVO_DIR}/P$i/pop${i}_filtered.recode.vcf
 	done
-	
+
 	# filter randomly 1k snp (optional)
 	#grep '^#' ${DENOVO_DIR}/P$i/pop${i}_filtered.vcf > ${DENOVO_DIR}/P$i/1krandom.vcf
 	#grep '^#' -v ${DENOVO_DIR}/P$i/pop${i}_filtered.vcf | shuf | head -n 1000 >> ${DENOVO_DIR}/$i/1krandom.vcf && echo 1krandom creado
@@ -58,6 +58,6 @@ do
 	cd $BASE
 	let i=$i+1
 done
-	
+
 
 
