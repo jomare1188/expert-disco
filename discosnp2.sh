@@ -27,6 +27,7 @@ grep INDEL_ ${DENOVO_DIR}/${VCF_RAW_FILE} >> ${DENOVO_DIR}/${VCF_INDEL_FILE}
 # filter step 7 (run 6 or 7) with populations script from stacks
 
 ${SCRIPT_DIR}/${STR_POPSCRIPT}
+ 
 
 let limit=$NUM_POP
 let i=$min_pop
@@ -34,12 +35,13 @@ while [ $limit -ge $i ]
 do
 	mkdir -p ${DENOVO_DIR}/P$i
 	populations -t 4 -V ${DENOVO_DIR}/${VCF_SNP_FILE} -M ${LIST_DIR}/str_popfile -O ${DENOVO_DIR}/P$i -p $i -r $min_samples --min_maf $min_maf --max_obs_het $max_obs_het --fstats -f p_value --bootstrap --verbose --hwe
-	grep '^#' ${DENOVO_DIR}/snp-expert.recode.vcf > ${DENOVO_DIR}/P$i/pop${i}_filtered.vcf
-	grep '^#' -v  ${DENOVO_DIR}/P$i/snp-expert.recode.p.sumstats.tsv | cut -f2 > locus.txt
+	grep '^#' ${DENOVO_DIR}/${VCF_SNP_FILE} > ${DENOVO_DIR}/P$i/pop${i}_filtered.vcf
+	grep '^#' -v  ${DENOVO_DIR}/P$i/snp.p.sumstats.tsv | cut -f2 > locus.txt
 	mapfile -t LOCUS < locus.txt && rm locus.txt
 	for a in "${LOCUS[@]}"
 	do
-		grep $a ${DENOVO_DIR}/snp-expert.recode.vcf >> ${DENOVO_DIR}/P$i/pop${i}_filtered.vcf
+		grep $a ${DENOVO_DIR}/snp.vcf >> ${DENOVO_DIR}/P$i/pop${i}_filtered.vcf
+		vcftools --vcf ${DENOVO_DIR}/P$i/pop${i}_filtered.vcf --recode --stdout > ${DENOVO_DIR}/P$i/pop${i}_filtered.recode.vcf
 	done
 	
 	# filter randomly 1k snp (optional)
@@ -48,7 +50,7 @@ do
 
 	## step 8 convert vcf to phylip(rxml), pgd, nexus, bayescan, genepop, structure.
 	cd $PGDspiderPATH
-	java -Xmx3072m -Xms512M -jar PGDSpider2-cli.jar -inputfile ${DENOVO_DIR}/P$i/pop${i}_filtered.vcf -inputformat VCF -outputfile ${DENOVO_DIR}/P$i/${OUT_PGD} -outputformat PGD -spid ${SPID_DIR}/${VCF_PGD_SPID}
+	java -Xmx3072m -Xms512M -jar PGDSpider2-cli.jar -inputfile ${DENOVO_DIR}/P$i/pop${i}_filtered.recode.vcf -inputformat VCF -outputfile ${DENOVO_DIR}/P$i/${OUT_PGD} -outputformat PGD -spid ${SPID_DIR}/${VCF_PGD_SPID}
 	java -Xmx3072m -Xms512M -jar PGDSpider2-cli.jar -inputfile ${DENOVO_DIR}/P$i/${OUT_PGD} -inputformat PGD -outputfile ${DENOVO_DIR}/P$i/${OUT_STR} -outputformat STRUCTURE -spid ${SPID_DIR}/${PGD_STR_SPID}
 	#java -Xmx3072m -Xms512M -jar PGDSpider2-cli.jar -inputfile ${DENOVO_DIR}/P$i/${OUT_PGD} -inputformat PGD -outputfile ${DENOVO_DIR}/P$i/${OUT_NEXUS} -outputformat NEXUS -spid ${SPID_DIR}/${PGD_NEXUS_SPID}
 	#java -Xmx3072m -Xms512M -jar PGDSpider2-cli.jar -inputfile ${DENOVO_DIR}/P$i/${OUT_PGD} -inputformat PGD -outputfile ${DENOVO_DIR}/P$i/${OUT_RXML} -outputformat PHYLIP -spid ${SPID_DIR}/${PGD_RXML_SPID}

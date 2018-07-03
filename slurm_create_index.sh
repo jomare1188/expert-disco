@@ -20,12 +20,12 @@ export OMP_NUM_THREADS=1
 ### First Step: Bowtie2 Build ###
 # Run Bowtie2
 
-#bowtie2-build --threads 3 $REF_DIR/$FASTA_FILE $INDEX_DIR/$PRODUCT
+bowtie2-build --threads 3 $REF_DIR/$FASTA_FILE $INDEX_DIR/$PRODUCT
 #bowtie2-build --threads $SLURM_NTASKS $REF_DIR/$FASTA_FILE $INDEX_DIR/$PRODUCT
 
 ### Second Step: Generate FastQ ###
 #TODO: Refactor this scripts to generate SAM
-#$SCRIPT_DIR/$PREPROC_SCRIPT
+$SCRIPT_DIR/$PREPROC_SCRIPT
 
 ### Third Step: Generate SAM and BAM with Bowtie2 and Samtools ###
 mapfile -t Vbarcode < $LIST_DIR/$CODES_FILE
@@ -34,7 +34,7 @@ let limit=${#Vbarcode[@]}-1
 i=0
 while [ $limit -ge $i ]
 do
-    #samtools view -hb -T $REF_DIR/$FASTA_FILE $SAM_DIR/${Vbarcode[i]}.sam | samtools sort -o $BAM_DIR/${Vbarcode[i]}.bam 
+    samtools view -hb -T $REF_DIR/$FASTA_FILE $SAM_DIR/${Vbarcode[i]}.sam | samtools sort -o $BAM_DIR/${Vbarcode[i]}.bam 
     let i=$i+1
 done
 
