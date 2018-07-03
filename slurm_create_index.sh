@@ -34,20 +34,22 @@ let limit=${#Vbarcode[@]}-1
 i=0
 while [ $limit -ge $i ]
 do
-    #bowtie2 --threads 3 -x $INDEX_DIR/$PRODUCT -1 $FASTQS_DIR/"${Vbarcode[i]}"_R1_.fastq -2 $FASTQS_DIR/"${Vbarcode[i]}"_R2_.fastq -S $SAM_DIR/"${Vbarcode[i]}".sam | samtools view -hbS -T $REF_DIR/$FASTA_FILE | samtools sort -o $BAM_DIR/"${Vbarcode[i]}".bam
-    #bowtie2 --threads 3 -x $INDEX_DIR/$PRODUCT -1 $FASTQS_DIR/"${Vbarcode[i]}"_R1_.fastq -2 $FASTQS_DIR/"${Vbarcode[i]}"_R2_.fastq -S $SAM_DIR/"${Vbarcode[i]}".sam
-    samtools view -hb -T $REF_DIR/$FASTA_FILE $SAM_DIR/${Vbarcode[i]}.sam | samtools sort -o $BAM_DIR/${Vbarcode[i]}.bam 
+    #samtools view -hb -T $REF_DIR/$FASTA_FILE $SAM_DIR/${Vbarcode[i]}.sam | samtools sort -o $BAM_DIR/${Vbarcode[i]}.bam 
     let i=$i+1
-
 done
 
-### Fourth Step: Run Stacks ###
+### Fourth Step: Run Stacks 2.1
 #module load stacks/1.46_gcc-5.4.0
 $SCRIPT_DIR/$POPFILE_SCRIPT
 
-ref_map.pl -o $REFMAP_DIR/P1 -O $LIST_DIR/$POPMAP_FILE -T 4 -X "populations:--fasta_loci --fasta_samples_raw --phylip_var --phylip --vcf_haplotypes --genepop --fasta_samples --ordered_export --fasta_samples_raw  --write_random_snp --structure --vcf -p 1 -r 0.75 --fstats -f p_value --bootstrap --verbose -M $LIST_DIR/$POPMAP_FILE -k --smooth_fstats --smooth_popstats --hwe" --samples $BAM_DIR
+ref_map.pl -o $REFMAP_DIR --popmap $LIST_DIR/$POPMAP_FILE -T 4 --samples $BAM_DIR
 
-populations -P $REFMAP_DIR/P1 -O $REFMAP_DIR/P2 -M $LIST_DIR/$POPMAP_FILE --fasta_samples_raw --phylip_var --phylip --vcf_haplotypes --genepop --fasta_samples --ordered_export --fasta_samples_raw  --write_random_snp --structure --vcf -p 2 -r 0.75 --fstats -f p_value --bootstrap --verbose -k --smooth_fstats --smooth_popstats --hwe --fasta_loci
-
-populations -P $REFMAP_DIR/P1 -O $REFMAP_DIR/P5 -M $LIST_DIR/$POPMAP_FILE --fasta_samples_raw --phylip_var --phylip --vcf_haplotypes --genepop --fasta_samples --ordered_export --fasta_samples_raw  --write_random_snp --structure --vcf -p 5 -r 0.75 --fstats -f p_value --bootstrap --verbose -k --smooth_fstats --smooth_popstats --hwe --fasta_loci
-
+NUM_POP=5
+let limit=$NUM_POP
+let i=$min_pop
+while [ $limit -ge $i ]
+do
+	mkdir -p $REFMAP_DIR/P$i
+	populations -t 4 -P $REFMAP_DIR -O $REFMAP_DIR/P$i -M $LIST_DIR/$POPMAP_FILE -p $i -r $min_samples --min_maf $min_maf --max_obs_het $max_obs_het --fstats -f p_value --bootstrap --verbose -k --smooth_fstats --smooth_popstats --hwe --phylip_var --phylip --vcf_haplotypes --genepop --write_random_snp --structure --vcf
+	let i=$i+1
+done

@@ -18,12 +18,9 @@ done
 
 sed 's/^/POP/' temp_pop_file > temp_pop_file_2
 paste -d "\t" indiv_temp temp_pop_file_2 > ${LIST_DIR}/str_popfile
-spid_vcf_to_pgd=$LIST_DIR/vcf-pgd.spid
-sed -i '21s#.*#VCF_PARSER_POP_FILE_QUESTION='$LIST_DIR'/str_popfile#' ${spid_vcf_to_pgd} 
+
+sed -i '21s#.*#VCF_PARSER_POP_FILE_QUESTION='${LIST_DIR}'/str_popfile#' $SPID_DIR/$VCF_PGD_SPID 
 rm indiv_temp temp_indiv_codes temp_pop_file temp_pop_file_2
-
-
-
 
 
 
