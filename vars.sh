@@ -33,9 +33,9 @@ POPMAP_FILE=popfile_stacks
 POPFILE_SCRIPT=stacks_popfile.sh
 STR_POPSCRIPT=popfile2.sh
 ## samples2.sh options
-NO_SAMPLES=10
-LINES=1000
-MAX_LINES=800000
+NO_SAMPLES=6
+LINES=1000000
+MAX_LINES=1000000
 ## DiscoSnpRad options
 SRC=$HOME/rconnector
 FOF_FILE=fof.txt
@@ -76,6 +76,13 @@ min_maf=0.05
 max_obs_het=0.70
 min_pop=1
 NUM_POP=5
-
+# structure parameters
+P_=1 # from 1 to 5
+STR_INPUT=${DENOVO_DIR}/P$P_/${OUT_STR}
+PARAMS_PATH=$HOME/Downloads/structure_console
+MAINPARAMS_FILE=mainparams_ensayo
+EXTRA_LAMBDA_FILE=extraparams_definelambda
+STRUCTURE_DIR=$BASE/STRUCTURE
+EXTRA_FILE=extraparams
 # Create dirs
-mkdir -p $LIST_DIR $REF_DIR $INDEX_DIR $SCRIPT_DIR $SAM_DIR $FASTQS_DIR $REFMAP_DIR $DENOVO_DIR $SAM_DIR $BAM_DIR
+mkdir -p $LIST_DIR $REF_DIR $INDEX_DIR $SCRIPT_DIR $SAM_DIR $FASTQS_DIR $REFMAP_DIR $DENOVO_DIR $SAM_DIR $BAM_DIR $STRUCTURE_DIR 
