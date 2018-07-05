@@ -33,9 +33,11 @@ POPMAP_FILE=popfile_stacks
 POPFILE_SCRIPT=stacks_popfile.sh
 STR_POPSCRIPT=popfile2.sh
 ## samples2.sh options
+
 NO_SAMPLES=6
 LINES=1000000
 MAX_LINES=1000000
+
 ## DiscoSnpRad options
 SRC=$HOME/rconnector
 FOF_FILE=fof.txt
