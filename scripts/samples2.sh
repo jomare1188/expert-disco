@@ -10,7 +10,7 @@ if [ $NO_SAMPLES -eq 0 ]
 	else
 	find ${RAW_DIR} -name "*.bz2" | sort | head -n ${NO_SAMPLES} > ${LIST_DIR}/listbz2.txt
 fi
-
+## Create lists of files #####################################################
 cat ${LIST_DIR}/listbz2.txt | rev | cut -d'/' -f 1 | rev | sed 's/_clipped_passed-re-filter//g' | sed 's/.bz2//g' | sed 's/_R1/_R1_/g' | sed 's/_R2/_R2_/g'  > ${LIST_DIR}/samples.txt
 mapfile -t LIST_BZ2 < ${LIST_DIR}/listbz2.txt # read listabz2 into an array
 mapfile -t SAMPLES < ${LIST_DIR}/samples.txt
@@ -36,12 +36,19 @@ done
 if [ $LINES -eq 0 ]
 then
     echo corriendo modo full samples
+    cd ${FASTQS_DIR}
+    cat ${LIST_DIR}/listbz2.txt | xargs -P 4 -n1 bunzip2
+    find ${FASTQS_DIR} -name "*.fastq" | sort  > ${LIST_DIR}/listfastqs.txt
+    mapfile -t LIST_FASTQS < ${LIST_DIR}/listfastqs.txt
+    cd ${BASE}
+    
 	i1=0
 	let LIMIT0=${#LIST_BZ2[@]}-1
 	while [  $LIMIT0 -ge $i1 ]
 	do
-			bzip2 -dck ${LIST_BZ2[i1]} > "${BASE}"/fastqs/${SAMPLES[i1]}
-	    	echo $i1 de ${LIMIT0}  "${BASE}"/fastqs/${SAMPLES[i1]}
+			# bzip2 -dck ${LIST_BZ2[i1]} > "${BASE}"/fastqs/${SAMPLES[i1]}
+			mv ${LIST_FASTQS[i1]} ${BASE}/fastqs/${SAMPLES[i1]} 
+	    	echo renombrando archivo $i1 de ${LIMIT0}  "${BASE}"/fastqs/${SAMPLES[i1]}
 	    	let i1=$i1+1
 	done
 else ### discard files below a min number of reads
